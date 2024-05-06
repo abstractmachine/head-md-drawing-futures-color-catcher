@@ -1,0 +1,39 @@
+/* fill full browser window */
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#planet-container {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+#planet {
+    z-index: 1;
+    height: 32vh;
+    width: 32vh;
+    position: absolute;
+    left: calc(50vw - 16vh);
+    top: calc(50vh - 16vh);
+    stroke-linejoin: bevel;
+}
+
+
+#planet {
+    stroke-width: 10;
+}
+
+
+body, #planet-container, #planet {
+    cursor:none;
+}
+
+
+/* the P5 canvas goes behind the planet */
+#p5 canvas {
+    position: absolute;
+    z-index: -1;
+}
