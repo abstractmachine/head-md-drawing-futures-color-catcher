@@ -27,6 +27,7 @@ function setup() {
 
     setupPlanet();
     setupSounds();
+    setupBLE();
 
 	colorMode(HSB, 360, 100, 100, 100);
 	background(0,0,0,100);
