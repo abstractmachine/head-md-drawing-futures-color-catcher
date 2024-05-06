@@ -15,7 +15,7 @@ function setupBLE() {
     myBLE = new p5ble();
 
     // Create a 'Connect and Start Notifications' button
-    connectButton = createButton("Connect and Start Notifications");
+    connectButton = createButton("Connecter le catcher");
     connectButton.position(15, 15);
     connectButton.mousePressed(connectAndStartNotify);
 
