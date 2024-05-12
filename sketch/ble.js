@@ -69,11 +69,14 @@ function handleMove(data) {
 
     // convert moveValue to direction
     let moveDirections = ['ne', 'e', 'se', 'sw', 'w', 'nw'];
-
     if (moveValue >= 0 && moveValue < moveDirections.length) {
         catcherGestureInput(moveDirections[moveValue]);
     }
 
+    // Reset move
+    if (moveValue == 255) {
+        catcherWaveInput();
+    }
 }
 
 // //  A function that toggles the LED
