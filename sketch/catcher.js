@@ -34,22 +34,27 @@ function simulateCatcherWithKeyboard() {
 
     // these are the six directional movements
     switch (key) {
-        case 'a': // nw
+        case 'a': // e
+        case '2':
             catcherGestureInput('e');
             break;
-        case 'b': // ne
+        case 'b': // se
+        case '3':
             catcherGestureInput('se');
             break;
-        case 'c': // w
+        case 'c': // sw
+        case '4':
             catcherGestureInput('sw');
             break;
-        case 'd': // e
+        case 'd': // w
+        case '5':
             catcherGestureInput('w');
             break;
-        case 'e': // sw
+        case '6': // nw
             catcherGestureInput('nw');
             break;
-        case 'f': // se
+        case 'f': // ne
+        case '1':
             catcherGestureInput('ne');
             break;
         default:
