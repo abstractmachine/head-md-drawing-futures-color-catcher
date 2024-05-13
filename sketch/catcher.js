@@ -34,22 +34,27 @@ function simulateCatcherWithKeyboard() {
 
     // these are the six directional movements
     switch (key) {
-        case 'a': // nw
+        case 'a': // e
+        case '2':
             catcherGestureInput('e');
             break;
-        case 'b': // ne
+        case 'b': // se
+        case '3':
             catcherGestureInput('se');
             break;
-        case 'c': // w
+        case 'c': // sw
+        case '4':
             catcherGestureInput('sw');
             break;
-        case 'd': // e
+        case 'd': // w
+        case '5':
             catcherGestureInput('w');
             break;
-        case 'e': // sw
+        case '6': // nw
             catcherGestureInput('nw');
             break;
-        case 'f': // se
+        case 'f': // ne
+        case '1':
             catcherGestureInput('ne');
             break;
         default:
@@ -99,32 +104,43 @@ function resetCatcher() {
     catcherIndex = -1;
     catcherColorIndexes = [];
 
+    if (paletteCharacteristic) {
+        paletteCharacteristic.writeValue(new Uint8Array(4 * 3))
+    }
 }
 
 
 function setCatcherColorUsingIndex(colorIndex) {
 
+    // ignore if not connected
+    if (!paletteCharacteristic) return
+
     if (catcherColorIndexes.length < 4) {
         catcherColorIndexes.push(colorIndex);
         console.log('catcherColorIndexes: ' + catcherColorIndexes);
+
+        // all colors are black by default
+        var palette = new Uint8Array(4 * 3)
+
+        // set the color already catched
+        catcherColorIndexes.forEach((colorIndex, i) => {
+            let colorHue = possibleColors[colorIndex].hue;
+            let colorSaturation = possibleColors[colorIndex].saturation;
+            let colorBrightness = possibleColors[colorIndex].brightness;
+            let rgb = hsvToRgb(colorHue / 360.0, colorSaturation / 100.0, colorBrightness / 100.0);
+            let r = rgb[0];
+            let g = rgb[1];
+            let b = rgb[2];
+            palette[i * 3 + 0] = r
+            palette[i * 3 + 1] = g
+            palette[i * 3 + 2] = b
+        })
+
+        // log data in hex format
+        console.log('palette: ' + Array.from(palette).map(byte => byte.toString(16).padStart(2, '0')).join(' '));
+
+        // send the palette to Catcher
+        paletteCharacteristic.writeValue(palette)
     }
-
-
-    // send color code to Catcher device
-
-    // convert hsv to rgb
-    // let colorHue = possibleColors[colorIndex].hue;
-    // let colorSaturation = possibleColors[colorIndex].saturation;
-    // let colorBrightness = possibleColors[colorIndex].brightness;
-    // let rgb = hsvToRgb(colorHue / 360.0, colorSaturation / 100.0, colorBrightness / 100.0);
-    // let r = rgb[0];
-    // let g = rgb[1];
-    // let b = rgb[2];
-    //catcherSerial.write('c');
-    //catcherSerial.write(catcherIndex.toString());
-    //catcherSerial.write(r.toString());
-    //catcherSerial.write(g.toString());
-    //catcherSerial.write(b.toString());
-    //catcherSerial.write('\n');
 
 } 
