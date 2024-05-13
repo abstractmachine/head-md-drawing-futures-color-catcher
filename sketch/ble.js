@@ -35,26 +35,31 @@ function connectAndStartNotify() {
 
 //  A function that will be called once got characteristics
 function gotCharacteristics(error, characteristics) {
-    if (error) console.log("error: ", error);
-    //console.log(characteristics);
-    for (let i = 0; i < characteristics.length; i++) {
-        if (characteristics[i].uuid == characteristicsUUID.led) {
-            ledCharacteristic = characteristics[i];
-        } else if (characteristics[i].uuid == characteristicsUUID.move) {
-            moveCharacteristic = characteristics[i];
-            myBLE.startNotifications(moveCharacteristic, handleMove);
-        } else if (characteristics[i].uuid == characteristicsUUID.palette) {
-            paletteCharacteristic = characteristics[i];
-        } else {
-            console.log("nothing");
-        }
+    if (typeof error != 'undefined') {
+        console.log("error: ", error);
+        return;
     }
+    
+    if (typeof characteristics != 'undefined') {
+        //console.log(characteristics);
+        for (let i = 0; i < characteristics.length; i++) {
+            if (characteristics[i].uuid == characteristicsUUID.led) {
+                ledCharacteristic = characteristics[i];
+            } else if (characteristics[i].uuid == characteristicsUUID.move) {
+                moveCharacteristic = characteristics[i];
+                myBLE.startNotifications(moveCharacteristic, handleMove);
+            } else if (characteristics[i].uuid == characteristicsUUID.palette) {
+                paletteCharacteristic = characteristics[i];
+            } else {
+                console.log("other caracteristic: ", characteristics[i].uuid);
+            }
+        }
 
-    // hide the connect button
-    connectButton.hide();
+        // hide the connect button
+        connectButton.hide();
 
-    myBLE.onDisconnected(onBleDisconnected);
-
+        myBLE.onDisconnected(onBleDisconnected);
+    }
 }
 
 function onBleDisconnected() {
