@@ -104,14 +104,43 @@ function resetCatcher() {
     catcherIndex = -1;
     catcherColorIndexes = [];
 
+    if (paletteCharacteristic) {
+        paletteCharacteristic.writeValue(new Uint8Array(4 * 3))
+    }
 }
 
 
 function setCatcherColorUsingIndex(colorIndex) {
 
+    // ignore if not connected
+    if (!paletteCharacteristic) return
+
     if (catcherColorIndexes.length < 4) {
         catcherColorIndexes.push(colorIndex);
         console.log('catcherColorIndexes: ' + catcherColorIndexes);
+
+        // all leds off
+        var data = new Uint8Array(4 * 3)
+
+        //
+        catcherColorIndexes.forEach((colorIndex, i) => {
+            let colorHue = possibleColors[colorIndex].hue;
+            let colorSaturation = possibleColors[colorIndex].saturation;
+            let colorBrightness = possibleColors[colorIndex].brightness;
+            let rgb = hsvToRgb(colorHue / 360.0, colorSaturation / 100.0, colorBrightness / 100.0);
+            let r = rgb[0];
+            let g = rgb[1];
+            let b = rgb[2];
+            data[i * 3 + 0] = r
+            data[i * 3 + 1] = g
+            data[i * 3 + 2] = b
+        })
+
+        // log data in hex format
+        console.log('palette: ' + Array.from(data).map(byte => byte.toString(16).padStart(2, '0')).join(' '));
+
+        paletteCharacteristic.writeValue(data)
+        .then()
     }
 
 

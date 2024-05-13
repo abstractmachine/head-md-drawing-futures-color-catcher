@@ -2,9 +2,11 @@ const serviceUuid = "85fa19a3-1000-4cd4-940c-3c038c9aa250";
 const characteristicsUUID = {
     led: "85fa19a3-1001-4cd4-940c-3c038c9aa250",
     move: "85fa19a3-1003-4cd4-940c-3c038c9aa250",
+    palette: "85fa19a3-1004-4cd4-940c-3c038c9aa250",
 };
 let ledCharacteristic;
 let moveCharacteristic;
+let paletteCharacteristic;
 let myBLE;
 let connectButton;
 
@@ -41,6 +43,8 @@ function gotCharacteristics(error, characteristics) {
         } else if (characteristics[i].uuid == characteristicsUUID.move) {
             moveCharacteristic = characteristics[i];
             myBLE.startNotifications(moveCharacteristic, handleMove);
+        } else if (characteristics[i].uuid == characteristicsUUID.palette) {
+            paletteCharacteristic = characteristics[i];
         } else {
             console.log("nothing");
         }
