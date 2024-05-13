@@ -28,8 +28,11 @@ function setup() {
     setupPlanet();
     setupSounds();
 
+    colorMode(RGB,255,255,255,255);
+    // background(255,255,255);
+	background(0,0,0);
+
 	colorMode(HSB, 360, 100, 100, 100);
-	background(0,0,0,100);
 
     reset();
 
@@ -70,7 +73,9 @@ function draw() {
 	colorMode(RGB, 255, 255, 255, 255);
 	noStroke();
 	fill(0,50);
+    // background(255,255,255,255);
 	rect(-1,-1,width+2,height+2);
+    // background(255,255,255);
 
     drawPlanet();
 
