@@ -21,16 +21,19 @@ function preload() {
 
 function setup() {
 
-    // fullscreen canvas
-    cnv = createCanvas(windowWidth, windowHeight);
-    cnv.parent('#p5');
+	// fullscreen canvas
+	cnv = createCanvas(windowWidth, windowHeight);
+	cnv.parent('#p5');
 
     setupPlanet();
     setupSounds();
     setupBLE();
 
-    colorMode(HSB, 360, 100, 100, 100);
-    background(0, 0, 0, 100);
+    colorMode(RGB,255,255,255,255);
+    // background(255,255,255);
+	background(0,0,0);
+
+	colorMode(HSB, 360, 100, 100, 100);
 
     reset();
 
@@ -40,8 +43,8 @@ function setup() {
 // if window resized
 function windowResized() {
 
-    // resize canvas
-    resizeCanvas(windowWidth, windowHeight);
+	// resize canvas
+	resizeCanvas(windowWidth, windowHeight);
 
     planetResized();
 
@@ -53,32 +56,34 @@ function reset() {
     // erase everything in the satellite array
     satellites = [];
 
-    // instatiate the satellites
-    for (let i = 0; i < satelliteCount; i++) {
-        satellites.push(new Satellite(i));
-    }
+	// instatiate the satellites
+	for(let i=0; i<satelliteCount; i++) {
+		satellites.push(new Satellite(i));
+	}
 
     planetReset();
     playSound('start');
-
+    
 }
 
 
 // draw loop
 function draw() {
 
-    // clear the canvas with a black background with opacity
-    colorMode(RGB, 255, 255, 255, 255);
-    noStroke();
-    fill(0, 50);
-    rect(-1, -1, width + 2, height + 2);
+	// clear the canvas with a black background with opacity
+	colorMode(RGB, 255, 255, 255, 255);
+	noStroke();
+	fill(0,50);
+    // background(255,255,255,255);
+	rect(-1,-1,width+2,height+2);
+    // background(255,255,255);
 
     drawPlanet();
 
-    // for testing purposes
-    // drawAlignement();
+	// for testing purposes
+	// drawAlignement();
 
-    // draw all the satellites
+	// draw all the satellites
     if (!endgame) {
 
         satellites.forEach((satellite) => {
@@ -89,13 +94,13 @@ function draw() {
         satellites.forEach((satellite) => {
             satellite.draw();
         });
-
+        
     }
 
     // draw all the explosions
     explosions.forEach((explosion) => {
-        explosion.draw();
-    });
+		explosion.draw();
+	});
 
     // draw all the waves
     waves.forEach((wave) => {
@@ -108,7 +113,7 @@ function draw() {
     });
 
     removeStragglers();
-
+	
 }
 
 
@@ -153,14 +158,14 @@ function keyPressed() {
 function drawAlignement() {
 
     // no stroke
-    stroke(0, 100, 100);
-    translate(width * 0.5, height * 0.5);
-    line(-width * 0.5, 0, width * 0.5, 0);
-    line(0, -height * 0.5, 0, height * 0.5);
-    line(+width * 0.165, -height * 0.5, +width * 0.165, height * 0.5);
-    line(-width * 0.165, -height * 0.5, -width * 0.165, height * 0.5);
-    line(-width * 0.5, -width * 0.165, width * 0.5, -width * 0.165);
-    line(-width * 0.5, +width * 0.165, width * 0.5, +width * 0.165);
+    stroke(0,100,100);
+    translate(width*0.5, height*0.5);
+    line(-width*0.5, 0, width*0.5, 0);
+    line(0, -height*0.5, 0, height*0.5);
+    line(+width*0.165, -height*0.5, +width*0.165, height*0.5);
+    line(-width*0.165, -height*0.5, -width*0.165, height*0.5);
+    line(-width*0.5, -width*0.165, width*0.5, -width*0.165);
+    line(-width*0.5, +width*0.165, width*0.5, +width*0.165);
 
 }
 
