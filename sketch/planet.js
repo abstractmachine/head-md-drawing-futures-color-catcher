@@ -5,12 +5,32 @@ let neutralColor = "#d0d0d0";
 let coreColor = "#d0d0d0";
 let svgRect = null;
 let coreRatio = 0.35;
-let filepaths = ["assets/images/shape-0.svg"];
-// let filepaths = ['assets/tester.svg'];
+let filepaths = [
+    "assets/images/Hexagone1.svg",
+    "assets/images/Hexagone2.svg",
+    "assets/images/Hexagone3.svg",
+    "assets/images/Hexagone4.svg",
+    "assets/images/Hexagone5.svg",
+    "assets/images/Hexagone6.svg",
+    "assets/images/Hexagone7.svg",
+    "assets/images/Hexagone8.svg",
+    "assets/images/Hexagone9.svg",
+    "assets/images/Hexagone10.svg",
+    "assets/images/Hexagone11.svg",
+    "assets/images/Hexagone12.svg",
+    "assets/images/Hexagone13.svg",
+    "assets/images/Hexagone14.svg",
+    "assets/images/Hexagone15.svg",
+    "assets/images/Hexagone16.svg",
+    "assets/images/Hexagone17.svg",
+    "assets/images/Hexagone18.svg",
+    "assets/images/Hexagone19.svg",
+    "assets/images/Hexagone20.svg",
+];
 
 function setupPlanet() {
 
-	loadPlanet(0);
+	loadPlanet();
 
 }
 
@@ -22,16 +42,20 @@ function planetResized() {
 }
 
 
-function loadPlanet(index) {
+function loadPlanet(index = -1) {
+	if (index == -1) {
+		index = Math.floor(Math.random() * filepaths.length);
+	}
+	console.log("load planet " + index + " from " + filepaths[index]);
+
+	// clear #planet-container element
+	document.getElementById('planet-container').innerHTML = "";
+	
 
 	planetContainer = Snap("#planet-container");
 	snap = Snap.load(filepaths[index], onPlanetLoaded);
 
-}
-
-
-function planetReset(index = 0) {
-
+	// set the planet index
 	planetIndex = index;
 
 	coreColor = neutralColor.toString();

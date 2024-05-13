@@ -25,7 +25,6 @@ function setup() {
 	cnv = createCanvas(windowWidth, windowHeight);
 	cnv.parent('#p5');
 
-    setupPlanet();
     setupSounds();
     setupBLE();
 
@@ -61,7 +60,7 @@ function reset() {
 		satellites.push(new Satellite(i));
 	}
 
-    planetReset();
+    loadPlanet();
     playSound('start');
     
 }

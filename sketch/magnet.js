@@ -151,7 +151,7 @@ function createWave() {
         satellite.repelRocket();
     });
 
-    planetReset(0);
+    loadPlanet();
 
 }
 
