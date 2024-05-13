@@ -66,7 +66,9 @@ function gameOver() {
 
     console.log("Game Over!");
 
-    playSound('gameover');
+	playSound('gameover');
+	
+	downloadPalette();
 
     endgame = true;
 
