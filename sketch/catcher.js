@@ -119,10 +119,10 @@ function setCatcherColorUsingIndex(colorIndex) {
         catcherColorIndexes.push(colorIndex);
         console.log('catcherColorIndexes: ' + catcherColorIndexes);
 
-        // all leds off
-        var data = new Uint8Array(4 * 3)
+        // all colors are black by default
+        var palette = new Uint8Array(4 * 3)
 
-        //
+        // set the color already catched
         catcherColorIndexes.forEach((colorIndex, i) => {
             let colorHue = possibleColors[colorIndex].hue;
             let colorSaturation = possibleColors[colorIndex].saturation;
@@ -131,34 +131,16 @@ function setCatcherColorUsingIndex(colorIndex) {
             let r = rgb[0];
             let g = rgb[1];
             let b = rgb[2];
-            data[i * 3 + 0] = r
-            data[i * 3 + 1] = g
-            data[i * 3 + 2] = b
+            palette[i * 3 + 0] = r
+            palette[i * 3 + 1] = g
+            palette[i * 3 + 2] = b
         })
 
         // log data in hex format
-        console.log('palette: ' + Array.from(data).map(byte => byte.toString(16).padStart(2, '0')).join(' '));
+        console.log('palette: ' + Array.from(palette).map(byte => byte.toString(16).padStart(2, '0')).join(' '));
 
-        paletteCharacteristic.writeValue(data)
-        .then()
+        // send the palette to Catcher
+        paletteCharacteristic.writeValue(palette)
     }
-
-
-    // send color code to Catcher device
-
-    // convert hsv to rgb
-    // let colorHue = possibleColors[colorIndex].hue;
-    // let colorSaturation = possibleColors[colorIndex].saturation;
-    // let colorBrightness = possibleColors[colorIndex].brightness;
-    // let rgb = hsvToRgb(colorHue / 360.0, colorSaturation / 100.0, colorBrightness / 100.0);
-    // let r = rgb[0];
-    // let g = rgb[1];
-    // let b = rgb[2];
-    //catcherSerial.write('c');
-    //catcherSerial.write(catcherIndex.toString());
-    //catcherSerial.write(r.toString());
-    //catcherSerial.write(g.toString());
-    //catcherSerial.write(b.toString());
-    //catcherSerial.write('\n');
 
 } 
