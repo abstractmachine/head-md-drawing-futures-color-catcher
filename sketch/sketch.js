@@ -130,6 +130,11 @@ function removeStragglers() {
 function mousePressed() {
     // start the audio engine on user gesture
     userStartAudio();
+
+    // Connect the catcher if not already by clicking anywhere
+    if (connectButton.elt.style.display == '') {
+        connectAndStartNotify();
+    }
 }
 
 
